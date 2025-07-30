@@ -2,12 +2,6 @@
 pragma solidity ^0.8.0;
 
 contract EternalData {
-    
-    
-    /**
-     * @notice The Eternal storage contract :- which stores the storage and state variables.
-     * @author Gaurang Bharadava.
-     */
 
     // Mappings
 
