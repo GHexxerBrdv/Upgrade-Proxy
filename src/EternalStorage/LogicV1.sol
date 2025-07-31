@@ -29,17 +29,17 @@ contract LogicV1 {
 
     // Getter functions
 
-    function getUintValue() external view returns(uint256) {
+    function getUintValue() external view returns (uint256) {
         bytes32 key = keccak256(abi.encodePacked("setUint", msg.sender));
         return EternalData(storageContract).getUint(key);
     }
 
-    function getAddressValue() external view returns(address) {
+    function getAddressValue() external view returns (address) {
         bytes32 key = keccak256(abi.encodePacked("setAddress", msg.sender));
         return EternalData(storageContract).getAddress(key);
     }
 
-    function getBoolValue() external view returns(bool) {
+    function getBoolValue() external view returns (bool) {
         bytes32 key = keccak256(abi.encodePacked("setBool", msg.sender));
         return EternalData(storageContract).getBool(key);
     }

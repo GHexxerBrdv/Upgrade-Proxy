@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 contract EternalData {
-
     // Mappings
 
     mapping(bytes32 => uint256) private uintValue;
@@ -25,15 +24,15 @@ contract EternalData {
 
     // Getter functions
 
-    function getUint(bytes32 _key) external view returns(uint256) {
+    function getUint(bytes32 _key) external view returns (uint256) {
         return uintValue[_key];
     }
 
-    function getAddress(bytes32 _key) external view returns(address) {
+    function getAddress(bytes32 _key) external view returns (address) {
         return addressValue[_key];
     }
 
-    function getBool(bytes32 _key) external view returns(bool) {
+    function getBool(bytes32 _key) external view returns (bool) {
         return boolValue[_key];
     }
 }

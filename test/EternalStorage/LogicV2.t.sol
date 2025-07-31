@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {Test, console2} from "forge-std/Test.sol";
-import {LogicV2} from "../../EternalStorage/src/LogicV2.sol";
-import {EternalData} from "../../EternalStorage/src/DataStorage.sol";
+import {LogicV2} from "../../src/EternalStorage/LogicV2.sol";
+import {EternalData} from "../../src/EternalStorage/DataStorage.sol";
 
 contract LogicV2Test is Test {
     LogicV2 public logic;

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {Test} from "forge-std/Test.sol";
-import {EternalData} from "../../EternalStorage/src/DataStorage.sol";
+import {EternalData} from "../../src/EternalStorage/DataStorage.sol";
 
 contract EternalStorageTest is Test {
     EternalData data;
