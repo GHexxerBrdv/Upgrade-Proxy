@@ -67,4 +67,26 @@ contract IntegrationTest is Test {
         assertEq(value1, true);
         assertEq(value2, true);
     }
+
+    function test_IncreaseUint() public {
+        vm.startPrank(user);
+        logic1.setUintValue(5);
+
+        uint256 value1 = logic1.getUintValue();
+        uint256 value2 = logic2.getUintValue();
+        vm.stopPrank();
+
+        assertEq(value1, 5);
+        assertEq(value2, 5);
+
+        vm.startPrank(user);
+        logic2.increaseBalance(10);
+
+        value1 = logic1.getUintValue();
+        value2 = logic2.getUintValue();
+        vm.stopPrank();
+
+        assertEq(value1, 15);
+        assertEq(value2, 15);
+    }
 }
