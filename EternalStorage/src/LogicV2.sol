@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {EternalData} from "./DataStorage.sol";
 
-contract LogicV1 {
+contract LogicV2 {
     address public storageContract;
 
     constructor(address _storageContract) {
