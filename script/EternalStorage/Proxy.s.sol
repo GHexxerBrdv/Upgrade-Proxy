@@ -10,8 +10,9 @@ contract ProxyScript is Script {
 
     function run() external returns (EternalProxy) {
         address implementation = DevOpsTools.get_most_recent_deployment("LogicV1", block.chainid);
+        address eternalData = DevOpsTools.get_most_recent_deployment("EternalData", block.chainid);
         vm.startBroadcast();
-        proxy = new EternalProxy(implementation);
+        proxy = new EternalProxy(implementation, eternalData);
         vm.stopBroadcast();
 
         return proxy;

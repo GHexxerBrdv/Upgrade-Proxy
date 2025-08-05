@@ -1,18 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-contract EternalProxy is Ownable {
+contract EternalProxy {
     error EternalProxy__ZeroAddress();
     error EternalProxy__InteractionFailed(bytes data);
+    error EternalProxy__NotAnOwner(address caller);
 
+    address public storageContract;
     address public implementation;
+    address owner;
 
     event ImplementationChanged(address oldImpl, address newImpl);
 
-    constructor(address impl) Ownable(msg.sender) {
+    constructor(address impl, address data) {
+        storageContract = data;
         implementation = impl;
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        if (msg.sender != owner) {
+            revert EternalProxy__NotAnOwner(msg.sender);
+        }
+        _;
     }
 
     function changeImplementation(address impl) external onlyOwner {
@@ -36,4 +46,6 @@ contract EternalProxy is Ownable {
 
         return returnData;
     }
+
+    receive() external payable {}
 }
