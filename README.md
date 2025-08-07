@@ -24,3 +24,7 @@ User -> proxy contract -> logic contract -> storage contract.
 There can be multiple logic contract that can point to the storage contract. the proxy contract will be pointing to upto date new implementation contract.
 
 Why we need to do this? to make storage persistance accross the logic. Why? because if you make and deploy another contract with their own storage variables and updated functionalities then old values will be lost, and the new values will be start with zero. The `Eternal Storage upgradability` pattern will solve this issue. and make storage unchanged accross the multiple logic contracts.
+
+## Transparent Upgradable Proxy Pattern:
+
+The Transparent Upgradable Proxy is one of the most widely used proxy patterns in Ethereum smart contract development. 
