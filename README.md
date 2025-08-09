@@ -11,7 +11,7 @@ There are theories and concepts out there for these proxies. But as far as i kno
 
 So i have decided to start a open source project in which these 5 types of proxies and smart contract upgradabiliy are implementated in minimal level. So that any learner and beginner can contribute into this project and make it bigger and modular. Yep in this project they will get hands on experience of how solidity actually works under the hood, How low level call works like delegatecall etc. Also participants can open their contribution portfolio from this beginner friendly project. 
 
-Yeah, i ma alone could make it but i though what if everyone can participate and contribute whether it is code contribution or docs contribution, in that way any one can learn from this and we also can contribute to the web 3 space. 
+Yeah, i am alone could make it but i though what if everyone can participate and contribute whether it is code contribution or docs contribution, in that way any one can learn from this and we also can contribute to the web 3 space. 
 
 The first phase or  minimal implementation of Eternal upgradability proxy has completed already by me. but the journey is not completed yet. We can make this project advance from minimal. 
 
