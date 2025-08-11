@@ -56,7 +56,7 @@ contract TransparentProxy {
         IMPLEMENTATION_SLOT.setSlot(_implementation);
     }
 
-    function _fallback() internal {
+    function _fallback() internal returns (bytes memory) {
         if (msg.sender == _getAdmin()) {
             revert TransparentProxy__adminCanNotCall();
         }
@@ -67,6 +67,8 @@ contract TransparentProxy {
         if (!ok) {
             revert TransparentProxy__transactionFailed(data);
         }
+
+        return data;
     }
 
     function _getImplementation() internal view returns (address impl) {
@@ -77,8 +79,8 @@ contract TransparentProxy {
         return ADMIN_SLOT.readSlot();
     }
 
-    fallback() external payable {
-        _fallback();
+    fallback(bytes calldata _data) external payable returns (bytes memory) {
+        return _fallback();
     }
 
     receive() external payable {
