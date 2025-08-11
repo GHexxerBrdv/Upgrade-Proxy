@@ -7,11 +7,11 @@ pragma solidity ^0.8.0;
  * @notice This is simple ERC20 implementation built from scratch but incomplete implementation.
  * @notice This code is only for learning purpose, kindly do not use this in production.
  */
-contract ImplementationV1 {
+contract ImplementationV2 {
     string public name;
     string public symbol;
 
-    uint256 totalSupply;
+    uint256 public totalSupply;
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
