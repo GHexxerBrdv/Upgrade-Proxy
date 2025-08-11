@@ -47,4 +47,20 @@ contract ImplementationV2Test is Test {
 
         assertEq(code.balanceOf(prox), 200e18);
     }
+
+    function test_burn() public {
+        address user = makeAddr("user");
+
+        code.mint(user, 1500e18);
+
+        vm.prank(user);
+        code.approve(address(this), type(uint256).max);
+
+        vm.prank(user);
+        code.burn(150e18);
+        assertEq(code.totalSupply(), 1350e18);
+
+        code.burnFrom(user, 200e18);
+        assertEq(code.totalSupply(), 1150e18);
+    }
 }
