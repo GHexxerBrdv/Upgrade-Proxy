@@ -11,7 +11,7 @@ contract ImplementationV1 {
     string public name;
     string public symbol;
 
-    uint256 totalSupply;
+    uint256 public totalSupply;
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
