@@ -79,7 +79,7 @@ contract TransparentProxy {
         return ADMIN_SLOT.readSlot();
     }
 
-    fallback(bytes calldata _data) external payable returns (bytes memory) {
+    fallback(bytes calldata /*_data*/) external payable returns (bytes memory) {
         return _fallback();
     }
 
