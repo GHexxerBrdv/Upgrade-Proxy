@@ -51,3 +51,25 @@ Why we need to do this? to make storage persistance accross the logic. Why? beca
 ## Transparent Upgradable Proxy Pattern:
 
 The Transparent Upgradable Proxy is one of the most widely used proxy patterns in Ethereum smart contract development. 
+
+There is three main component of this proxy pattern.
+1. Implementation Logic
+2. Proxy
+3. admin logic
+
+* implementation logic will consist of all the business logic (functions) with the state (storage variables).
+* Proxy will be pointing to the appropriate updated implementation logic contract.
+* Admin logic will manage all the upgredeability of the implementation contract from the proxy.
+
+There is a catch here, admin will not be stored in implementation contract and can not call the implementation logic. admin only have access of updating implementation logic. that's why it is called transparent proxy.
+
+Unlike eternal storage proxy, the transparent proxy will store implementation and admin address in appropriate pre defined storage slotes in evm. So that storage collistion can be mitigate. and the storage slotes will be derived from following operation for both implementation and admin.
+
+Implementation:
+```js
+0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc or bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)
+```
+Admin:
+```js
+0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103 or bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1).
+```
