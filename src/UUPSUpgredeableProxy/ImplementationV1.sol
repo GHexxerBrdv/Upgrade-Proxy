@@ -6,10 +6,16 @@ pragma solidity ^0.8.0;
  * @author Gaurang Bharadava
  * @notice  This dutch auction allows user to sell their goods with desired price, the price will gose down by the time pass by defined discountRate set by seller.
  */
+import {SlotLib} from "./lib/SlotLib.sol";
+
 contract ImplementationV1 {
+    using SlotLib for bytes32;
+
     error DutchAuction__AuctionIsNotActive();
     error DutchAuction__SendEnoughMoney();
     error DutchAuction__GoodIsSold();
+    error DutchAuction__ZeroAddress();
+    error DutchAuction__IncompletImplementation(address impl);
 
     address internal immutable seller;
     string internal description;
@@ -22,6 +28,8 @@ contract ImplementationV1 {
     bool internal isActive;
     bool internal isSold;
     bool internal lock;
+
+    bytes32 internal constant IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 
     modifier auctionStatus() {
         if (isSold) {
@@ -43,6 +51,11 @@ contract ImplementationV1 {
         lock = true;
         _;
         lock = false;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == seller, "Only owner has access");
+        _;
     }
 
     constructor(
@@ -84,6 +97,22 @@ contract ImplementationV1 {
         }
         isSold = true;
         sellerBalance = goodPrice;
+    }
+
+    function upgradeImpl(address implAddress) public onlyOwner {
+        if (implAddress == address(0)) {
+            revert DutchAuction__ZeroAddress();
+        }
+
+        if (ImplementationV1(implAddress).proxiableUUPS() != IMPLEMENTATION_SLOT) {
+            revert DutchAuction__IncompletImplementation(implAddress);
+        }
+
+        IMPLEMENTATION_SLOT.setSlot(implAddress);
+    }
+
+    function proxiableUUPS() public pure returns (bytes32) {
+        return IMPLEMENTATION_SLOT;
     }
 
     function getSeller() external view returns (address) {
