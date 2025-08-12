@@ -11,5 +11,5 @@ fs_permissions = [
     { access = "read", path = "./reports" },
 ]
 
-remappings = ["@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"]
+remappings = ["@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/", "foundry-devops/=lib/foundry-devops/"]
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
