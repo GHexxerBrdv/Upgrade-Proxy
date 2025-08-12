@@ -138,4 +138,12 @@ contract ImplementationV1 {
     function getStatus() external view returns (bool, bool) {
         return (isActive, isSold);
     }
+
+    function getTimestamp() external view returns (uint256) {
+        return timestamp;
+    }
+
+    function getSellerBalance() external view returns (uint256) {
+        return sellerBalance;
+    }
 }
