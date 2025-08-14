@@ -73,3 +73,15 @@ Admin:
 ```js
 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103 or bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1).
 ```
+
+## UUPS Upgradable Proxy Pattern:
+
+The UUPS Upgradable Proxy is one of the most widely used proxy patterns in Ethereum smart contract development, also known as universal proxy pattern.
+
+This proxy pattern is same like Transparent Upgradable Proxy pattern but thare is a catch. Unlike Transparent Upgradable Proxy pattern, the admin lies in implementation contract. that means you do not have to store admin address in proxy contract. You only have to store address of implementation contract in proxy contract. that makes deployment of the proxy contract very cheap.
+
+Another big catch is that we can update implementation contract from the old implementatio contract logic. that mean we do not have to develop the upgrade function in the proxy contract, although we have to take care of implementation logic. they shoul have update logic into them otherwise the chain of upgradability will break and thhe implementation won't be able update anymore. 
+
+The updated implementation should be compatible with UUPS proxy contract, otherwise we won't be able to update implementation logic afterward.
+
+This makes UUPS proxies sensitive about upgradability.
