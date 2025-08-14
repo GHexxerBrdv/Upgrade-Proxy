@@ -85,3 +85,15 @@ Another big catch is that we can update implementation contract from the old imp
 The updated implementation should be compatible with UUPS proxy contract, otherwise we won't be able to update implementation logic afterward.
 
 This makes UUPS proxies sensitive about upgradability.
+
+## Beacon Upgradable Proxy Pattern:
+
+It is another type of proxy pattern in ethereum smart contracts. It's a twist on the usual proxy pattern where instead of asking implementation address in the proxy itself, it asks the separate contract known as Beacon for the address of the crrent implementation.
+
+There are three main roles in this proxy.
+
+1. Beacon contract -> Stores the implementation address and can be upgraded by an admin.
+2. Proxy contract -> Delegates calls to the implementation address retrieved from the Beacon.
+3. implementation contract -> Contains the actual business logic.
+
+The main advantage of this proxy is, it provide single upgrade point to the multiple proxies which allows contracts to be gas saving. for example if you have deployed multiple proxies then you do not have to update implementation address on all of them, instead you just have to update into one beacon.
