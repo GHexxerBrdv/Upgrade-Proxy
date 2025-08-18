@@ -6,8 +6,13 @@ import {IBeacon} from "./interfaces/IBeacon.sol";
 contract BeaconProxy {
     address private immutable beacon;
 
-    constructor(address _beacon) {
+    constructor(address _beacon, bytes memory initialData) {
         beacon = _beacon;
+
+        if (initialData.length > 0) {
+            (bool success,) = _implementation().delegatecall(initialData); // solium-disable-line
+            require(success, "Construction failed");
+        }
     }
 
     function _getBeacon() internal view returns (address) {

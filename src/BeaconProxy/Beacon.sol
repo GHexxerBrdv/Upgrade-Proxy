@@ -24,10 +24,6 @@ contract Beacon {
     }
 
     function updateImpl(address impl) external onlyAdmin {
-        if (impl == address(0)) {
-            revert("Zero address");
-        }
-
         IMPLEMENTATION_SLOT.setSlot(impl);
     }
 

@@ -8,7 +8,8 @@ contract DoMathTest is Test {
     ImplementationV1 public impl;
 
     function setUp() public {
-        impl = new ImplementationV1(5, 5);
+        impl = new ImplementationV1();
+        impl.initialize(5, 5);
     }
 
     function test_doMathAdd() public view {

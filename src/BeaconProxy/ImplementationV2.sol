@@ -5,7 +5,7 @@ contract ImplementationV2 {
     uint256 public x;
     uint256 public y;
 
-    constructor(uint256 _x, uint256 _y) {
+    function initialize(uint256 _x, uint256 _y) external {
         x = _x;
         y = _y;
     }
