@@ -97,3 +97,16 @@ There are three main roles in this proxy.
 3. implementation contract -> Contains the actual business logic.
 
 The main advantage of this proxy is, it provide single upgrade point to the multiple proxies which allows contracts to be gas saving. for example if you have deployed multiple proxies then you do not have to update implementation address on all of them, instead you just have to update into one beacon.
+
+
+## Diamond Upgradable Proxy Pattern:
+
+A Diamond is an upgradeable proxy where function selectors are routed to many implementation contracts (“facets”) via delegatecall, letting you split logic across modules and add/replace/remove functions without storage clashes—using the DiamondCut mechanism defined by EIP-2535.
+
+In diamond pattern nomenclature, the “proxy contract” is called a diamond and the “implementation contracts” are called “facets.”  Having two terms that refer to the same thing has led to confusion, so we want to drill the point home now:
+
+* diamond = proxy contract
+* facet = implementation contract
+
+A diamond (the proxy) can be upgraded by changing one or more of the implementation contracts (facets). Alternatively, a diamond can be non-upgradeable (immutable) by not supporting a mechanism to change the facets (implementation contracts).
+
