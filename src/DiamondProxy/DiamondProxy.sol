@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import {Add} from "../../src/DiamondProxy/Implementation1.sol";
 import {Multiply} from "../../src/DiamondProxy/Implementation2.sol";
+import {IDamond} from "./interfaces/IDiamond.sol";
 
-contract Diamond {
+contract Diamond is IDamond {
     address immutable IMPL1;
     address immutable IMPL2;
 
@@ -16,6 +17,39 @@ contract Diamond {
     constructor(address impl1, address impl2) {
         IMPL1 = impl1;
         IMPL2 = impl2;
+
+        FacetCut[] memory _diamondCuts = new FacetCut[](3);
+
+        _diamondCuts[0].facetAddress = IMPL1;
+        bytes4[] memory _addFacets = new bytes4[](1);
+        _addFacets[0] = Add.add.selector;
+
+        // add to _diamondCuts
+        _diamondCuts[0].action = FacetCutAction.ADD;
+        _diamondCuts[0].functionSelectors = _addFacets;
+
+        _diamondCuts[1].facetAddress = IMPL2;
+        bytes4[] memory _mulFacets = new bytes4[](2);
+        _mulFacets[0] = Multiply.multiply.selector;
+        _mulFacets[1] = Multiply.exponent.selector;
+
+        // add to _diamondCuts
+        _diamondCuts[1].action = FacetCutAction.ADD;
+        _diamondCuts[1].functionSelectors = _mulFacets;
+
+        // Note that the IDiamondLoupe interface functions are also logged.
+        _diamondCuts[2].facetAddress = address(this);
+        bytes4[] memory _loupeFacets = new bytes4[](4);
+        _loupeFacets[0] = this.facetAddress.selector;
+        _loupeFacets[1] = this.facetAddresses.selector;
+        _loupeFacets[2] = this.facets.selector;
+        _loupeFacets[3] = this.facetFunctionSelectors.selector;
+
+        // add to _diamondCuts
+        _diamondCuts[2].action = FacetCutAction.ADD;
+        _diamondCuts[2].functionSelectors = _loupeFacets;
+
+        emit DiamondCut(_diamondCuts, address(0), "");
     }
 
     function facetAddress(bytes4 selector) public view returns (address) {
@@ -36,7 +70,7 @@ contract Diamond {
         return facetAdds;
     }
 
-    function facetFunctionSelector(address _facet) public view returns (bytes4[] memory) {
+    function facetFunctionSelectors(address _facet) public view returns (bytes4[] memory) {
         if (_facet == address(0)) {
             revert("Zero Address");
         }
@@ -67,7 +101,7 @@ contract Diamond {
 
         for (uint256 i = 0; i < fa.length; i++) {
             _facets[i].facetAddress = fa[i];
-            _facets[i].functionSelectors = facetFunctionSelector(fa[i]);
+            _facets[i].functionSelectors = facetFunctionSelectors(fa[i]);
         }
 
         return _facets;
