@@ -5,7 +5,7 @@ import {IDiamondCut} from "../interfaces/IDiamondCut.sol";
 
 library LibDiamond {
     // Diamond storage position.
-    bytes32 internal constant DIAMONT_STORAGE_POSITION = keccak256("diamond.standard.diamond.storage");
+    bytes32 internal constant DIAMOND_STORAGE_POSITION = keccak256("diamond.standard.diamond.storage");
 
     struct FacetAddressAndSelectorPosition {
         address facetAddress;
@@ -15,7 +15,7 @@ library LibDiamond {
     struct DiamondStorage {
         mapping(bytes4 => FacetAddressAndSelectorPosition) selectorToFacetAndPos;
         bytes4[] selectors;
-        mapping(address => uint256) facetFunctionCount;
+        // mapping(address => uint256) facetFunctionCount;
         address contractOwner;
     }
 
@@ -23,13 +23,13 @@ library LibDiamond {
     event OwnershipTransferred(address oldOwner, address newOwner);
 
     function diamondStorage() internal pure returns (DiamondStorage storage ds) {
-        bytes32 position = DIAMONT_STORAGE_POSITION;
+        bytes32 position = DIAMOND_STORAGE_POSITION;
         assembly {
             ds.slot := position
         }
     }
 
-    function steContractOwner(address _owner) internal {
+    function setContractOwner(address _owner) internal {
         DiamondStorage storage ds = diamondStorage();
 
         address oldOwner = ds.contractOwner;
