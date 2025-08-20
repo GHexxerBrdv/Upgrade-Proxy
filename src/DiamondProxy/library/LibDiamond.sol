@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IDiamondCut} from "../interfaces/IDiamondCut.sol";
+
 library LibDiamond {
     // Diamond storage position.
     bytes32 internal constant DIAMONT_STORAGE_POSITION = keccak256("diamond.standard.diamond.storage");
@@ -17,20 +19,8 @@ library LibDiamond {
         address contractOwner;
     }
 
-    event DiamondCut(FacetCut[] _diamondCut, address _init, bytes _calldata);
+    event DiamondCut(IDiamondCut.FacetCut[] _diamondCut, address _init, bytes _calldata);
     event OwnershipTransferred(address oldOwner, address newOwner);
-
-    enum FacetCutAction {
-        Add,
-        Replace,
-        Remove
-    }
-
-    struct FacetCut {
-        address facetAddress;
-        FacetCutAction action;
-        bytes4[] functionSelectors;
-    }
 
     function diamondStorage() internal pure returns (DiamondStorage storage ds) {
         bytes32 position = DIAMONT_STORAGE_POSITION;
@@ -53,14 +43,14 @@ library LibDiamond {
         }
     }
 
-    function diamondCut(FacetCut[] memory _diamondCut, address _init, bytes memory _calldata) internal {
+    function diamondCut(IDiamondCut.FacetCut[] memory _diamondCut, address _init, bytes memory _calldata) internal {
         for (uint256 i; i < _diamondCut.length; i++) {
-            FacetCutAction action = _diamondCut[i].action;
-            if (action == FacetCutAction.Add) {
+            IDiamondCut.FacetCutAction action = _diamondCut[i].action;
+            if (action == IDiamondCut.FacetCutAction.Add) {
                 addFunctions(_diamondCut[i].facetAddress, _diamondCut[i].functionSelectors);
-            } else if (action == FacetCutAction.Replace) {
+            } else if (action == IDiamondCut.FacetCutAction.Replace) {
                 replaceFunctions(_diamondCut[i].facetAddress, _diamondCut[i].functionSelectors);
-            } else if (action == FacetCutAction.Remove) {
+            } else if (action == IDiamondCut.FacetCutAction.Remove) {
                 removeFunctions(_diamondCut[i].functionSelectors);
             } else {
                 revert("Invalid action");
@@ -88,9 +78,57 @@ library LibDiamond {
         }
     }
 
-    function replaceFunctions(address facet, bytes4[] memory functionSelectors) internal {}
+    function replaceFunctions(address facet, bytes4[] memory functionSelectors) internal {
+        if (facet == address(0)) {
+            revert("Zero address");
+        }
 
-    function removeFunctions(bytes4[] memory functionSelectors) internal {}
+        DiamondStorage storage ds = diamondStorage();
+        for (uint256 i = 0; i < functionSelectors.length; i++) {
+            bytes4 sel = functionSelectors[i];
+            address oldFacet = ds.selectorToFacetAndPos[sel].facetAddress;
+            if (oldFacet == address(0)) {
+                revert("Facet missing");
+            }
 
-    function initializeDiamondCut(address _init, bytes memory _calldata) internal {}
+            if (oldFacet == facet) {
+                revert("Same facet");
+            }
+
+            ds.selectorToFacetAndPos[sel].facetAddress = facet;
+        }
+    }
+
+    function removeFunctions(bytes4[] memory functionSelectors) internal {
+        DiamondStorage storage ds = diamondStorage();
+
+        for (uint256 i = 0; i < functionSelectors.length; i++) {
+            bytes4 sel = functionSelectors[i];
+            FacetAddressAndSelectorPosition storage old = ds.selectorToFacetAndPos[sel];
+            if (old.facetAddress == address(0)) {
+                revert("Missing facet address");
+            }
+
+            uint256 last = ds.selectors.length - 1;
+            bytes4 lastSel = ds.selectors[last];
+            ds.selectors[old.selectorPosition] = lastSel;
+            ds.selectorToFacetAndPos[lastSel].selectorPosition = old.selectorPosition;
+            ds.selectors.pop();
+            delete ds.selectorToFacetAndPos[lastSel];
+        }
+    }
+
+    function initializeDiamondCut(address _init, bytes memory _calldata) internal {
+        if (_init == address(0)) {
+            if (_calldata.length > 0) {
+                revert("Init is zero and calldata is non-empty");
+            }
+        } else {
+            (bool ok,) = _init.delegatecall(_calldata);
+
+            if (!ok) {
+                revert("Init failed");
+            }
+        }
+    }
 }
