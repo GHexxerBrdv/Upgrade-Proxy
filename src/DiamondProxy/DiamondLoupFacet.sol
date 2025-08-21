@@ -10,8 +10,7 @@ contract DiamondLoupFacet is IDiamondLoupe {
     }
 
     function facetAddresses() external view returns (address[] memory) {
-        (address[] memory addresses,) = this.facets();
-        return addresses;
+        return this.facets();
     }
 
     function facetFunctionSelector(address _facet) external view returns (bytes4[] memory) {
@@ -27,7 +26,38 @@ contract DiamondLoupFacet is IDiamondLoupe {
             bytes4 s = ds.selectors[i];
             if (ds.selectorToFacetAndPos[s].facetAddress == _facet) out[idx++] = s;
         }
+        return out;
     }
 
-    function facets() external view returns (address[] memory, bytes4[][] memory) {}
+    function facets() external view returns (address[] memory) {
+        LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
+        uint256 n = ds.selectors.length;
+        address[] memory tmp = new address[](n);
+
+        uint256 fCount;
+
+        for (uint256 i; i < n; i++) {
+            address f = ds.selectorToFacetAndPos[ds.selectors[i]].facetAddress;
+
+            bool seen;
+
+            for (uint256 j; j < fCount; j++) {
+                if (tmp[j] == f) {
+                    seen = true;
+                    break;
+                }
+
+                if (!seen) {
+                    tmp[fCount++] = f;
+                }
+            }
+        }
+
+        address[] memory facetAddrs = new address[](fCount);
+        for (uint256 i; i < fCount; i++) {
+            facetAddrs[i] = tmp[i];
+        }
+
+        return facetAddrs;
+    }
 }
