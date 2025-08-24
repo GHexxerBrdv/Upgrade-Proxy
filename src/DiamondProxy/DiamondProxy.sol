@@ -8,8 +8,8 @@ import {IDiamondCut} from "./interfaces/IDiamondCut.sol";
 import {LibDiamond} from "./library/LibDiamond.sol";
 
 contract Diamond {
-    address immutable IMPL1;
-    address immutable IMPL2;
+    // address immutable IMPL1;
+    // address immutable IMPL2;
 
     constructor(address _owner, address _cutFacet) {
         if (_owner == address(0)) {
@@ -21,6 +21,7 @@ contract Diamond {
         bytes4[] memory functionSelectors = new bytes4[](1);
 
         functionSelectors[0] = IDiamondCut.diamondCut.selector;
+
         cut[0] = IDiamondCut.FacetCut({
             facetAddress: _cutFacet,
             action: IDiamondCut.FacetCutAction.Add,

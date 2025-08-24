@@ -46,10 +46,10 @@ contract DiamondLoupFacet is IDiamondLoupe {
                     seen = true;
                     break;
                 }
+            }
 
-                if (!seen) {
-                    tmp[fCount++] = f;
-                }
+            if (!seen) {
+                tmp[fCount++] = f;
             }
         }
 
