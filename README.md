@@ -1,5 +1,3 @@
-# Hii all, I had started an open source project on smart contract upgradable proxies.
-
 # Mostly there are 5 type of upgradability. 
 * Eternal Storage
 * Transparent
