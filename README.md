@@ -1,4 +1,4 @@
-```markdown
+
 # 🧠 Upgradeable Smart Contracts: An Educational Open Source Project
 
 ### 🚀 Learn & Contribute to Smart Contract Upgradability in Ethereum
@@ -54,11 +54,11 @@ This is made possible by **proxy patterns**:
 
 **Flow:**
 
-```
+
 
 User → Proxy → Logic → Eternal Storage
 
-````
+
 
 **Purpose:** Keeps storage persistent even if logic changes. Useful when you want **logic flexibility** without losing data.
 
@@ -86,7 +86,7 @@ bytes32(uint256(keccak256("eip1967.proxy.implementation")) - 1)
 
 // Admin
 bytes32(uint256(keccak256("eip1967.proxy.admin")) - 1)
-````
+```
 
 **Benefit:** Separation of concerns — clear distinction between admin and user.
 
@@ -174,9 +174,4 @@ This project is **for learners, by learners**. Whether you're new to Solidity or
 
 Let’s collaborate, explore the EVM together, and contribute meaningfully to the open-source Web3 space.
 
-```
 
----
-
-
-```
