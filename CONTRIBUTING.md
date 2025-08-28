@@ -1,38 +1,60 @@
 # Contributing to Upgrade-Proxy
 
-First off, thanks for taking the time to contribute! ❤️
+First off — thank you for considering a contribution! ❤️  
+Your time and effort are deeply appreciated.
 
-## Quick Reference
+---
 
-I want to …
+## 🚀 Quick Reference
 
-- _report a bug!_ ➡️ [open an issue](#issues)
-- _fix a bug!_ ➡️ [open a pull request](#pull-requests)
-- _implement a new feature!_ ➡️ [open an issue to discuss it first, then a pull request](#issues)
-- _add code!_ ➡️ [read this](#adding-code)
-- _update an outdated code!_ ➡️ [open a pull request](#pull-requests)
+I want to...
 
-## Issues
+- 🐛 _Report a bug_ ➡️ [Open an issue](#issues)
+- 🔧 _Fix a bug_ ➡️ [Open a pull request](#pull-requests)
+- ✨ _Add a new feature_ ➡️ [Open an issue first to discuss, then submit a pull request](#issues)
+- 💻 _Contribute code_ ➡️ [See guidelines below](#adding-code)
+- 🔄 _Update or refactor existing code_ ➡️ [Open a pull request](#pull-requests)
 
-You can open an issue [here](https://github.com/GHexxerBrdv/Upgrade-Proxy/issues/new).
-If you're reporting a bug, please include relevent proof of concept.
+---
 
-## Pull Requests
+## 📂 Issues
 
-You are welcome to open a pull request, but unless it is small and trivial, **please open an issue to discuss your idea first** 🙏🏼
+Found a bug or have a suggestion?  
+Please open an issue [here](https://github.com/GHexxerBrdv/Upgrade-Proxy/issues/new).
 
-Opening a pull request is as easy as forking the repository and committing your changes.
-If you need any help with it or face any Git related problems, don't hesitate to ask for help 🤗
+When reporting a bug, be sure to include:
+- A clear description
+- Steps to reproduce
+- Any relevant logs or screenshots
+- A minimal proof of concept, if possible
 
-It may take time to review your pull request.
-Please be patient 😇
+---
 
+## 🔁 Pull Requests
 
-## Adding Code
+You're welcome to open a pull request directly!  
+However, for anything beyond small fixes, **please open an issue first to discuss your idea** 🙏🏼
 
-You can open an issue [here](https://github.com/GHexxerBrdv/Upgrade-Proxy/issues/new).
+### How to contribute:
+1. Fork the repository
+2. Create a new branch (`git checkout -b my-feature`)
+3. Commit your changes
+4. Submit a pull request
 
-You are welcome to open a pull request for adding a code, but unless it is small and trivial, **please open an issue to discuss your idea first** 🙏🏼
+If you need help with Git or the process, feel free to ask 🤗  
+Note: Reviews may take time — your patience is appreciated! 😇
 
-- [Open a pull request](#pull-requests).
+---
 
+## 🧠 Adding Code
+
+Want to contribute code?
+
+1. If it's a new feature or significant change, [open an issue first](https://github.com/GHexxerBrdv/Upgrade-Proxy/issues/new) to discuss it.
+2. For minor updates or refactors, feel free to go ahead and [submit a pull request](#pull-requests).
+
+Keep your code clean, well-documented, and in line with the project's existing style.
+
+---
+
+Thank you again for your support! 🙌

@@ -155,16 +155,7 @@ The most modular and complex pattern.
 ## 👥 How to Contribute
 
 1. Star ⭐ the repo
-2. Fork 🍴 and clone the repo
-3. Check open issues or suggest one
-4. Create a pull request (code or documentation)
-5. Let’s build a Web3 learning hub together
-
----
-
-## 📎 Repository Link
-
-👉 [`https://github.com/GHexxerBrdv/Upgrade-Proxy.git`](https://github.com/GHexxerBrdv/Upgrade-Proxy.git)
+2. Go to contributing tab(https://github.com/GHexxerBrdv/Upgrade-Proxy?tab=contributing-ov-file)
 
 ---
 
