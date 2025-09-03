@@ -9,7 +9,8 @@ contract EternalData {
     mapping(bytes32 => bool) private boolValue;
 
     // Setter functions
-
+    //
+    //
     function setUint(bytes32 _key, uint256 _value) external {
         uintValue[_key] = _value;
     }
